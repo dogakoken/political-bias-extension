@@ -6,6 +6,78 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   });
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  // Speedometer için gerekli değişkenler
+  let speedometerCanvas = document.getElementById("speedometer");
+  let context = speedometerCanvas.getContext("2d");
+  let centerX = speedometerCanvas.width / 2;
+  let centerY = speedometerCanvas.height / 2;
+  let radius = 70;
+  let startAngle = Math.PI * 0.75;
+  let endAngle = Math.PI * 2.25;
+  let counterClockwise = false;
+
+  // Speedometer'ı çizmek için bir fonksiyon
+  function drawSpeedometer(angle) {
+    context.clearRect(0, 0, speedometerCanvas.width, speedometerCanvas.height);
+
+    // Speedometer'ın dış çemberini çiz
+    context.beginPath();
+    context.arc(
+      centerX,
+      centerY,
+      radius,
+      startAngle,
+      endAngle,
+      counterClockwise
+    );
+    context.lineWidth = 8;
+    context.strokeStyle = "#333";
+    context.stroke();
+
+    // İbreyi çiz
+    let ix = centerX + (radius + 30) * Math.cos(angle);
+    let iy = centerY + radius * Math.sin(angle);
+    context.beginPath();
+    context.moveTo(centerX, centerY);
+    context.lineTo(ix, iy);
+    context.lineWidth = 5;
+    context.strokeStyle = "#f00"; // varsayılan olarak ortada durur
+    context.stroke();
+
+    context.font = "15px Arial";
+
+    context.fillStyle = "#000"; // siyah renk metin
+    context.textAlign = "center";
+    context.fillText("right", centerX - radius + 30, centerY + 10); // soldaki metin
+    context.fillText("center", centerX, centerY - radius + 40); // üstteki metin
+    context.fillText("left", centerX + radius - 30, centerY + 10); // sağdaki metin
+  }
+
+  // Speedometer'ı çizmek için ilk çağrı
+  drawSpeedometer(Math.PI * 1.5, "#ffcc00"); // Başlangıçta ortada durur
+});
+
+// politicalBiasLabelElem güncellendiğinde speedometer'ı güncelle
+function updateSpeedometer(label) {
+  let angle;
+  let color;
+
+  // label'e göre angle değerini belirle
+  if (label === "left") {
+    angle = Math.PI * 0.75; // sola doğru
+    color = "green";
+  } else if (label === "right") {
+    angle = Math.PI * 2.25; // sağa doğru
+    color = "red";
+  } else {
+    angle = Math.PI * 1.5; // ortada durur
+    color = "#ffcc00";
+  }
+
+  drawSpeedometer(angle, color);
+}
+
 chrome.runtime.onMessage.addListener(function (request) {
   if (request.action === "updatePopup") {
     console.log("Received updatePopup message:", request);
@@ -14,7 +86,15 @@ chrome.runtime.onMessage.addListener(function (request) {
 
     //Update other counters as before
     updatePopup(counters);
+
+    // Speedometer'ı güncelle
+    updateSpeedometer(counters.politicalBiasLabel);
   }
+});
+
+politicalBiasLabelElem.addEventListener("DOMNodeInserted", function () {
+  let label = politicalBiasLabelElem.textContent.toLowerCase();
+  updateSpeedometer(label);
 });
 
 function updatePopup(counters) {

@@ -61,6 +61,15 @@ span {
   color: yellow;
 }
 
+#speedometerContainer {
+  text-align: center;
+}
+
+#speedometer {
+  width: 350px;
+  height: 150px;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
