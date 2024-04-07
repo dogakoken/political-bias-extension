@@ -1,3 +1,7 @@
+//fake news yazan yerler political bias olarak değiştirildi
+//label olarak yer alan real ve fake, left ve right olarak değiştirildi ve center eklendi
+//todo: prediction kodu olmadığı için test edilmedi. test için dummy data verilip test edilebilir.
+//todo: ya da prediction kodu gelince test edilip düzenlenebilir.
 // Execute the content script and get the selected text
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   chrome.tabs.executeScript(tabs[0].id, { file: "wordcount.js" }, function () {
@@ -5,7 +9,8 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, { action: "getSelectedText" });
   });
 });
-
+//todo: speedometer tasarımı daha prof yapılabilir. şuan basic bir speedometer mevcut
+//speedometer boyutları burada ayarlandı, değiştirilebilir ya da farklı dosyada yazılabılır
 document.addEventListener("DOMContentLoaded", function () {
   // Speedometer için gerekli değişkenler
   let speedometerCanvas = document.getElementById("speedometer");
@@ -32,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
       counterClockwise
     );
     context.lineWidth = 8;
-    context.strokeStyle = "#333";
+    context.strokeStyle = "#333"; //speedometer çerçevesi rengi
     context.stroke();
 
     // İbreyi çiz
@@ -49,9 +54,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     context.fillStyle = "#000"; // siyah renk metin
     context.textAlign = "center";
-    context.fillText("right", centerX - radius + 30, centerY + 10); // soldaki metin
-    context.fillText("center", centerX, centerY - radius + 40); // üstteki metin
-    context.fillText("left", centerX + radius - 30, centerY + 10); // sağdaki metin
+    context.fillText("left", centerX - radius + 30, centerY + 10); // soldaki metin left
+    context.fillText("center", centerX, centerY - radius + 40); // üstteki metin center
+    context.fillText("right", centerX + radius - 30, centerY + 10); // sağdaki metin right
   }
 
   // Speedometer'ı çizmek için ilk çağrı
@@ -71,8 +76,9 @@ function updateSpeedometer(label) {
     angle = Math.PI * 2.25; // sağa doğru
     color = "red";
   } else {
+    //center
     angle = Math.PI * 1.5; // ortada durur
-    color = "#ffcc00";
+    color = "#ffcc00"; //sarı renk
   }
 
   drawSpeedometer(angle, color);
@@ -136,7 +142,7 @@ function updatePopup(counters) {
     if (!isNaN(probabilityValue)) {
       let iconHtml = "";
       let iconColor = "";
-
+      //labelların olasılığına göre çıkan ikonlar. hepsi aynı sadece renkler farklı (left, right ve centera göre)
       if (label === "left") {
         // star icon for left label
         if (probabilityValue >= 0.9) {
@@ -180,6 +186,29 @@ function updatePopup(counters) {
           // 1 "star" icon
           iconHtml = '<i class="fas fa-star"></i>';
           iconColor = "red";
+        }
+      } else if (label === "center") {
+        // icon icon for right label
+        if (probabilityValue >= 0.9) {
+          // 5 "star" icons
+          iconHtml =
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+          iconColor = "#ffcc00";
+        } else if (probabilityValue >= 0.8 && probabilityValue < 0.9) {
+          iconHtml =
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+          iconColor = "#ffcc00";
+        } else if (probabilityValue >= 0.7 && probabilityValue < 0.8) {
+          iconHtml =
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+          iconColor = "#ffcc00";
+        } else if (probabilityValue >= 0.6 && probabilityValue < 0.7) {
+          iconHtml = '<i class="fas fa-star"></i><i class="fas fa-star"></i>';
+          iconColor = "#ffcc00";
+        } else if (probabilityValue >= 0.5 && probabilityValue < 0.6) {
+          // 1 "star" icon
+          iconHtml = '<i class="fas fa-star"></i>';
+          iconColor = "#ffcc00";
         }
       }
 

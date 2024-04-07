@@ -1,3 +1,5 @@
+//sadece title değiştirildi
+
 const contextMenuItemId = "analyzeSelectedText";
 
 chrome.contextMenus.remove(contextMenuItemId, function () {

@@ -49,6 +49,8 @@ span {
   animation: pulse 1s infinite;
 }
 
+/* label renkleri  */
+
 .political-bias-label-left {
   color: rgb(75, 204, 75);
 }
@@ -60,6 +62,7 @@ span {
 .political-bias-label-center {
   color: yellow;
 }
+/* speedometer için css ihtiyaçları */
 
 #speedometerContainer {
   text-align: center;
