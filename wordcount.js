@@ -1,5 +1,6 @@
 async function updateCounters(selectedText) {
-  const url = new URL("http://127.0.0.1:5000/hello2");
+  const url = new URL("http://127.0.0.1:5000/hello2"); //fake news kısmında hello olan port hello2 olarak burada güncellendi.
+  //TODO: farklı portlarda ayrı ayrı çalışıyor mu prediction geldikten sonra değerlendirilmesi test edilmesi lazım
   let political_bias = "";
 
   // Add query parameters
