@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Speedometer'ı çizmek için ilk çağrı
-  drawSpeedometer(Math.PI * 1.5, "#ffcc00"); // Başlangıçta ortada durur
+  drawSpeedometer(Math.PI * -1.5, "#ffcc00"); // Başlangıçta ortada durur
 });
 
 // politicalBiasLabelElem güncellendiğinde speedometer'ı güncelle
@@ -70,10 +70,10 @@ function updateSpeedometer(label) {
 
   // label'e göre angle değerini belirle
   if (label === "left") {
-    angle = Math.PI * 0.75; // sola doğru
+    angle = Math.PI * 0.95; // sola doğru
     color = "green";
   } else if (label === "right") {
-    angle = Math.PI * 2.25; // sağa doğru
+    angle = Math.PI * 2.05; // sağa doğru
     color = "red";
   } else {
     //center
