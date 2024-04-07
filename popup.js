@@ -191,10 +191,10 @@ document.addEventListener("DOMContentLoaded", function () {
       angle = Math.PI * 1.5; // ortada durur
       color = "#ffcc00"; //sarı renk
     }
-
+    console.log(color);
     drawSpeedometer(angle, color);
   }
-  function drawSpeedometer(angle) {
+  function drawSpeedometer(angle, color) {
     context.clearRect(0, 0, speedometerCanvas.width, speedometerCanvas.height);
 
     // Speedometer'ın dış çemberini çiz
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
       counterClockwise
     );
     context.lineWidth = 8;
-    context.strokeStyle = "#333"; //speedometer çerçevesi rengi
+    context.strokeStyle = "#000"; //speedometer çerçevesi rengi
     context.stroke();
 
     // İbreyi çiz
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function () {
     context.moveTo(centerX, centerY);
     context.lineTo(ix, iy);
     context.lineWidth = 5;
-    context.strokeStyle = "#f00"; // varsayılan olarak ortada durur
+    context.strokeStyle = color;
     context.stroke();
 
     context.font = "15px Arial";
@@ -231,5 +231,5 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Speedometer'ı çizmek için ilk çağrı
-  drawSpeedometer(Math.PI * -1.5, "#ffcc00"); // Başlangıçta ortada durur
+  drawSpeedometer(Math.PI * -1.5, "#563ce7"); // Başlangıçta ortada durur
 });
