@@ -9,81 +9,6 @@ chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
     chrome.tabs.sendMessage(tabs[0].id, { action: "getSelectedText" });
   });
 });
-//todo: speedometer tasarımı daha prof yapılabilir. şuan basic bir speedometer mevcut
-//speedometer boyutları burada ayarlandı, değiştirilebilir ya da farklı dosyada yazılabılır
-document.addEventListener("DOMContentLoaded", function () {
-  // Speedometer için gerekli değişkenler
-  let speedometerCanvas = document.getElementById("speedometer");
-  let context = speedometerCanvas.getContext("2d");
-  let centerX = speedometerCanvas.width / 2;
-  let centerY = speedometerCanvas.height / 2;
-  let radius = 70;
-  let startAngle = Math.PI * 0.75;
-  let endAngle = Math.PI * 2.25;
-  let counterClockwise = false;
-
-  // Speedometer'ı çizmek için bir fonksiyon
-  function drawSpeedometer(angle) {
-    context.clearRect(0, 0, speedometerCanvas.width, speedometerCanvas.height);
-
-    // Speedometer'ın dış çemberini çiz
-    context.beginPath();
-    context.arc(
-      centerX,
-      centerY,
-      radius,
-      startAngle,
-      endAngle,
-      counterClockwise
-    );
-    context.lineWidth = 8;
-    context.strokeStyle = "#333"; //speedometer çerçevesi rengi
-    context.stroke();
-
-    // İbreyi çiz
-    let ix = centerX + (radius + 30) * Math.cos(angle);
-    let iy = centerY + radius * Math.sin(angle);
-    context.beginPath();
-    context.moveTo(centerX, centerY);
-    context.lineTo(ix, iy);
-    context.lineWidth = 5;
-    context.strokeStyle = "#f00"; // varsayılan olarak ortada durur
-    context.stroke();
-
-    context.font = "15px Arial";
-
-    context.fillStyle = "#000"; // siyah renk metin
-    context.textAlign = "center";
-    context.fillText("left", centerX - radius + 30, centerY + 10); // soldaki metin left
-    context.fillText("center", centerX, centerY - radius + 40); // üstteki metin center
-    context.fillText("right", centerX + radius - 30, centerY + 10); // sağdaki metin right
-  }
-
-  // Speedometer'ı çizmek için ilk çağrı
-  drawSpeedometer(Math.PI * -1.5, "#ffcc00"); // Başlangıçta ortada durur
-});
-
-// politicalBiasLabelElem güncellendiğinde speedometer'ı güncelle
-function updateSpeedometer(label) {
-  let angle;
-  let color;
-
-  // label'e göre angle değerini belirle
-  if (label === "left") {
-    angle = Math.PI * 0.95; // sola doğru
-    color = "green";
-  } else if (label === "right") {
-    angle = Math.PI * 2.05; // sağa doğru
-    color = "red";
-  } else {
-    //center
-    angle = Math.PI * 1.5; // ortada durur
-    color = "#ffcc00"; //sarı renk
-  }
-
-  drawSpeedometer(angle, color);
-}
-
 chrome.runtime.onMessage.addListener(function (request) {
   if (request.action === "updatePopup") {
     console.log("Received updatePopup message:", request);
@@ -96,11 +21,6 @@ chrome.runtime.onMessage.addListener(function (request) {
     // Speedometer'ı güncelle
     updateSpeedometer(counters.politicalBiasLabel);
   }
-});
-
-politicalBiasLabelElem.addEventListener("DOMNodeInserted", function () {
-  let label = politicalBiasLabelElem.textContent.toLowerCase();
-  updateSpeedometer(label);
 });
 
 function updatePopup(counters) {
@@ -136,7 +56,7 @@ function updatePopup(counters) {
       `political-bias-label-${label.toLowerCase()}`
     );
     selectedTextElem.style.color =
-      label === "left" ? "green" : label === "right" ? "red" : "yellow";
+      label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
 
     const probabilityValue = parseFloat(probability);
     if (!isNaN(probabilityValue)) {
@@ -235,3 +155,81 @@ function updatePopup(counters) {
     selectedTextElem.style.color = "black";
   }
 }
+//todo: speedometer tasarımı daha prof yapılabilir. şuan basic bir speedometer mevcut
+//speedometer boyutları burada ayarlandı, değiştirilebilir ya da farklı dosyada yazılabılır
+document.addEventListener("DOMContentLoaded", function () {
+  // Speedometer için gerekli değişkenler
+  const speedometerCanvas = document.getElementById("speedometer");
+  const politicalBiasLabelElem = document.getElementById("politicalBiasLabel");
+  const context = speedometerCanvas.getContext("2d");
+  let centerX = speedometerCanvas.width / 2;
+  let centerY = speedometerCanvas.height / 2;
+  let radius = 70;
+  let startAngle = Math.PI * 0.75;
+  let endAngle = Math.PI * 2.25;
+  let counterClockwise = false;
+
+  politicalBiasLabelElem.addEventListener("DOMNodeInserted", function () {
+    let label = politicalBiasLabelElem.textContent.toLowerCase();
+    updateSpeedometer(label);
+  });
+
+  function updateSpeedometer(label) {
+    console.log("Label:", label);
+    let angle;
+    let color;
+
+    // label'e göre angle değerini belirle
+    if (label === "left") {
+      angle = Math.PI * 0.95; // sola doğru
+      color = "green";
+    } else if (label === "right") {
+      angle = Math.PI * 2.05; // sağa doğru
+      color = "red";
+    } else {
+      //center
+      angle = Math.PI * 1.5; // ortada durur
+      color = "#ffcc00"; //sarı renk
+    }
+
+    drawSpeedometer(angle, color);
+  }
+  function drawSpeedometer(angle) {
+    context.clearRect(0, 0, speedometerCanvas.width, speedometerCanvas.height);
+
+    // Speedometer'ın dış çemberini çiz
+    context.beginPath();
+    context.arc(
+      centerX,
+      centerY,
+      radius,
+      startAngle,
+      endAngle,
+      counterClockwise
+    );
+    context.lineWidth = 8;
+    context.strokeStyle = "#333"; //speedometer çerçevesi rengi
+    context.stroke();
+
+    // İbreyi çiz
+    let ix = centerX + (radius + 30) * Math.cos(angle);
+    let iy = centerY + radius * Math.sin(angle);
+    context.beginPath();
+    context.moveTo(centerX, centerY);
+    context.lineTo(ix, iy);
+    context.lineWidth = 5;
+    context.strokeStyle = "#f00"; // varsayılan olarak ortada durur
+    context.stroke();
+
+    context.font = "15px Arial";
+
+    context.fillStyle = "#000"; // siyah renk metin
+    context.textAlign = "center";
+    context.fillText("left", centerX - radius + 30, centerY + 10); // soldaki metin left
+    context.fillText("center", centerX, centerY - radius + 40); // üstteki metin center
+    context.fillText("right", centerX + radius - 30, centerY + 10); // sağdaki metin right
+  }
+
+  // Speedometer'ı çizmek için ilk çağrı
+  drawSpeedometer(Math.PI * -1.5, "#ffcc00"); // Başlangıçta ortada durur
+});
