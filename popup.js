@@ -212,8 +212,9 @@ document.addEventListener("DOMContentLoaded", function () {
     context.stroke();
 
     // İbreyi çiz
-    let ix = centerX + (radius + 30) * Math.cos(angle);
-    let iy = centerY + radius * Math.sin(angle);
+    let ix = centerX + (radius - 5) * Math.cos(angle);
+    let iy = centerY + (radius - 5) * Math.sin(angle);
+
     context.beginPath();
     context.moveTo(centerX, centerY);
     context.lineTo(ix, iy);
