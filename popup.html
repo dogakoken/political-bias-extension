@@ -9,19 +9,69 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
+    <style>
+      @font-face {
+        font-family: Oddval Variable;
+        src: url("https://garet.typeforward.com/assets/fonts/campaigns/OddvalVariable-VariableVF.woff2");
+      }
 
+      #politicalBiasSection h3 {
+        font-family: Oddval Variable;
+        font-size: 4vh;
+        color: #c11f8b;
+        white-space: nowrap;
+        line-height: 90%;
+        font-variation-settings: "wght" 900, "ital" 1;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+        animation: change 3s infinite;
+        margin-bottom: 40px;
+        margin-top: 30px;
+      }
+
+      span {
+        font-weight: bold;
+        color: #8100e0;
+        animation: pulse 1s infinite;
+      }
+
+      @keyframes change {
+        0%,
+        100% {
+          font-variation-settings: "wght" 900, "ital" 1;
+        }
+
+        50% {
+          font-variation-settings: "wght" 100, "ital" 0;
+        }
+      }
+    </style>
     <script src="wordcount.js"></script>
     <script src="popup.js"></script>
   </head>
   <body>
     <div id="politicalBiasSection">
-      <h3>Political Bias Detector</h3>
+      <h3>
+        <!-- A container for your repeating lines of text -->
+
+        <!-- Each line of text -->
+
+        <!-- Each character of your text is wrapped in a span for individual control -->
+        <span>P</span><span>o</span><span>l</span><span>i</span><span>t</span
+        ><span>i</span><span>c</span><span>a</span><span>l</span
+        ><span>&nbsp;</span><span>B</span><span>i</span><span>a</span
+        ><span>s</span><span>&nbsp;</span><span>D</span><span>e</span
+        ><span>t</span><span>e</span><span>c</span><span>t</span><span>o</span
+        ><span>r</span>
+      </h3>
       <p>Predicted Label: <span id="politicalBiasLabel"></span></p>
       <p>Probability: <span id="politicalBiasProbability"></span></p>
+      <div id="speedometerContainer">
+        <canvas id="speedometer"></canvas>
+      </div>
     </div>
-    <div id="speedometerContainer">
-      <canvas id="speedometer"></canvas>
-    </div>
+
     <div id="selectedTextSection">
       <h3>Selected Text</h3>
       <p>Selected Text: <span id="selectedText"></span></p>
