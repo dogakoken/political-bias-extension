@@ -33,8 +33,22 @@ function updatePopup(counters) {
   const politicalBiasProbabilityElem = document.getElementById(
     "politicalBiasProbability"
   );
-  const selectedTextElem = document.getElementById("selectedText");
 
+  const body = document.querySelector("body");
+  const politicalBiasLabel = counters.politicalBiasScore
+    .split("\n")[0]
+    .toLowerCase();
+  if (politicalBiasLabel === "left") {
+    body.style.backgroundColor = "green";
+  } else if (politicalBiasLabel === "right") {
+    body.style.backgroundColor = "red";
+  } else if (politicalBiasLabel === "center") {
+    body.style.backgroundColor = "#ffcc00";
+  } else {
+    body.style.backgroundColor = "#563ce7";
+  }
+
+  const selectedTextElem = document.getElementById("selectedText");
   if (counters) {
     spaceElem.textContent = counters.space;
     charsElem.textContent = counters.chars;
@@ -186,10 +200,13 @@ document.addEventListener("DOMContentLoaded", function () {
     } else if (label === "right") {
       angle = Math.PI * 2.05; // sağa doğru
       color = "red";
-    } else {
+    } else if (label === "center") {
       //center
       angle = Math.PI * 1.5; // ortada durur
       color = "#ffcc00"; //sarı renk
+    } else {
+      angle = Math.PI * -1.5; // ortada durur
+      color = "#563ce7"; //sarı renk
     }
     console.log(color);
     drawSpeedometer(angle, color);
@@ -207,13 +224,13 @@ document.addEventListener("DOMContentLoaded", function () {
       endAngle,
       counterClockwise
     );
-    context.lineWidth = 8;
+    context.lineWidth = 5;
     context.strokeStyle = "#000"; //speedometer çerçevesi rengi
     context.stroke();
 
     // İbreyi çiz
-    let ix = centerX + (radius - 5) * Math.cos(angle);
-    let iy = centerY + (radius - 5) * Math.sin(angle);
+    let ix = centerX + (radius - 4) * Math.cos(angle);
+    let iy = centerY + (radius - 4) * Math.sin(angle);
 
     context.beginPath();
     context.moveTo(centerX, centerY);

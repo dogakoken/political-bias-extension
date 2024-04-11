@@ -1,11 +1,10 @@
 body {
   font-family: "Arial", sans-serif;
-  background-color: #3498db;
+  background-color: #563ce7;
   margin: 0;
   padding: 20px;
   width: 500px;
   align-items: center;
-  background: linear-gradient(45deg, #15222e, #8100e0);
 }
 
 h3 {
@@ -38,6 +37,9 @@ p {
   border-bottom: 1px solid #ddd;
   padding-bottom: 10px;
   transition: color 0.3s ease-in-out;
+}
+canvas {
+  margin-left: 50px;
 }
 
 p:hover {
