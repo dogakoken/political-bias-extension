@@ -69,8 +69,9 @@ function updatePopup(counters) {
     politicalBiasLabelElem.classList.add(
       `political-bias-label-${label.toLowerCase()}`
     );
-    selectedTextElem.style.color =
-      label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+    /*selectedTextElem.style.color =
+      label === "left" ? "green" : label === "right" ? "red" : "#ffcc00"; This is for changing selected text color same with the background color*/
+      selectedTextElem.style.color = "black";
 
     const probabilityValue = parseFloat(probability);
     if (!isNaN(probabilityValue)) {
@@ -79,23 +80,25 @@ function updatePopup(counters) {
       //labelların olasılığına göre çıkan ikonlar. hepsi aynı sadece renkler farklı (left, right ve centera göre)
       if (label === "left") {
         // star icon for left label
+        // 5 "star" icons
         if (probabilityValue >= 0.9) {
           iconHtml =
             '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
           iconColor = "green";
         } else if (probabilityValue >= 0.8 && probabilityValue < 0.9) {
           iconHtml =
-            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>';
           iconColor = "green";
         } else if (probabilityValue >= 0.7 && probabilityValue < 0.8) {
           iconHtml =
-            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "green";
         } else if (probabilityValue >= 0.6 && probabilityValue < 0.7) {
-          iconHtml = '<i class="fas fa-star"></i><i class="fas fa-star"></i>';
+          iconHtml = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "green";
+          // 1 "star" icon & 4 empty inside "star" icon
         } else if (probabilityValue >= 0.5 && probabilityValue < 0.6) {
-          iconHtml = '<i class="fas fa-star"></i>';
+          iconHtml = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "green";
         }
       } else if (label === "right") {
@@ -107,18 +110,18 @@ function updatePopup(counters) {
           iconColor = "red";
         } else if (probabilityValue >= 0.8 && probabilityValue < 0.9) {
           iconHtml =
-            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>';
           iconColor = "red";
         } else if (probabilityValue >= 0.7 && probabilityValue < 0.8) {
           iconHtml =
-            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "red";
         } else if (probabilityValue >= 0.6 && probabilityValue < 0.7) {
-          iconHtml = '<i class="fas fa-star"></i><i class="fas fa-star"></i>';
+          iconHtml = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "red";
         } else if (probabilityValue >= 0.5 && probabilityValue < 0.6) {
-          // 1 "star" icon
-          iconHtml = '<i class="fas fa-star"></i>';
+          // 1 "star" icon & 4 empty inside "star" icon
+          iconHtml = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "red";
         }
       } else if (label === "center") {
@@ -130,18 +133,18 @@ function updatePopup(counters) {
           iconColor = "#ffcc00";
         } else if (probabilityValue >= 0.8 && probabilityValue < 0.9) {
           iconHtml =
-            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>';
           iconColor = "#ffcc00";
         } else if (probabilityValue >= 0.7 && probabilityValue < 0.8) {
           iconHtml =
-            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>';
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "#ffcc00";
         } else if (probabilityValue >= 0.6 && probabilityValue < 0.7) {
-          iconHtml = '<i class="fas fa-star"></i><i class="fas fa-star"></i>';
+          iconHtml = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "#ffcc00";
         } else if (probabilityValue >= 0.5 && probabilityValue < 0.6) {
-          // 1 "star" icon
-          iconHtml = '<i class="fas fa-star"></i>';
+          // 1 "star" icon & 4 empty inside "star" icon
+          iconHtml = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "#ffcc00";
         }
       }
