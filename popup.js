@@ -71,7 +71,7 @@ function updatePopup(counters) {
     );
     /*selectedTextElem.style.color =
       label === "left" ? "green" : label === "right" ? "red" : "#ffcc00"; This is for changing selected text color same with the background color*/
-      selectedTextElem.style.color = "black";
+    selectedTextElem.style.color = "black";
 
     const probabilityValue = parseFloat(probability);
     if (!isNaN(probabilityValue)) {
@@ -94,11 +94,13 @@ function updatePopup(counters) {
             '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "green";
         } else if (probabilityValue >= 0.6 && probabilityValue < 0.7) {
-          iconHtml = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+          iconHtml =
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "green";
           // 1 "star" icon & 4 empty inside "star" icon
         } else if (probabilityValue >= 0.5 && probabilityValue < 0.6) {
-          iconHtml = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+          iconHtml =
+            '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "green";
         }
       } else if (label === "right") {
@@ -117,11 +119,13 @@ function updatePopup(counters) {
             '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "red";
         } else if (probabilityValue >= 0.6 && probabilityValue < 0.7) {
-          iconHtml = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+          iconHtml =
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "red";
         } else if (probabilityValue >= 0.5 && probabilityValue < 0.6) {
           // 1 "star" icon & 4 empty inside "star" icon
-          iconHtml = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+          iconHtml =
+            '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "red";
         }
       } else if (label === "center") {
@@ -140,11 +144,13 @@ function updatePopup(counters) {
             '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "#ffcc00";
         } else if (probabilityValue >= 0.6 && probabilityValue < 0.7) {
-          iconHtml = '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+          iconHtml =
+            '<i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "#ffcc00";
         } else if (probabilityValue >= 0.5 && probabilityValue < 0.6) {
           // 1 "star" icon & 4 empty inside "star" icon
-          iconHtml = '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
+          iconHtml =
+            '<i class="fas fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i><i class="far fa-star"></i>';
           iconColor = "#ffcc00";
         }
       }
@@ -219,14 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Speedometer'ın dış çemberini çiz
     context.beginPath();
-    context.arc(
-      centerX,
-      centerY,
-      radius,
-      startAngle,
-      endAngle,
-      counterClockwise
-    );
+    context.arc(centerX, centerY, radius, 0, Math.PI * 2, counterClockwise);
     context.lineWidth = 5;
     context.strokeStyle = "#000"; //speedometer çerçevesi rengi
     context.stroke();
@@ -249,6 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
     context.fillText("left", centerX - radius + 30, centerY + 10); // soldaki metin left
     context.fillText("center", centerX, centerY - radius + 40); // üstteki metin center
     context.fillText("right", centerX + radius - 30, centerY + 10); // sağdaki metin right
+    context.fillText("N/A", centerX, centerY + radius - 25); //alttaki metin N/A
   }
 
   // Speedometer'ı çizmek için ilk çağrı
