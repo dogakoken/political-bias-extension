@@ -1,7 +1,3 @@
-//fake news yazan yerler political bias olarak değiştirildi
-//label olarak yer alan real ve fake, left ve right olarak değiştirildi ve center eklendi
-//todo: prediction kodu olmadığı için test edilmedi. test için dummy data verilip test edilebilir.
-//todo: ya da prediction kodu gelince test edilip düzenlenebilir.
 // Execute the content script and get the selected text
 chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
   chrome.tabs.executeScript(tabs[0].id, { file: "wordcount.js" }, function () {
@@ -178,7 +174,7 @@ function updatePopup(counters) {
     selectedTextElem.style.color = "black";
   }
 }
-//todo: speedometer tasarımı daha prof yapılabilir. şuan basic bir speedometer mevcut
+
 //speedometer boyutları burada ayarlandı, değiştirilebilir ya da farklı dosyada yazılabılır
 document.addEventListener("DOMContentLoaded", function () {
   // Speedometer için gerekli değişkenler
@@ -241,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
     context.strokeStyle = color;
     context.stroke();
 
-    context.font = "15px Arial";
+    context.font = " bold 13px Oddval Variable";
 
     context.fillStyle = "#000"; // siyah renk metin
     context.textAlign = "center";

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<!-- todo: manifest.json dosyasında ikonlar değişebilir. fake news detector ile aynı ikonlar mevcut -->
-<!-- tüm fake news yazan yerler political biasa çevirildi -->
+
 <html>
   <head>
     <title>Political Bias Detector & Word Counter</title>
@@ -9,6 +8,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
     />
+    <style>
+      @font-face {
+        font-family: "Oddval Variable";
+        src: url("fonts/OddvalVariable-Regular.ttf") format("truetype");
+        /* Diğer formatlar için gerekirse ekleyebilirsiniz */
+      }
+    </style>
     <style>
       @font-face {
         font-family: Oddval Variable;
@@ -53,11 +59,6 @@
   <body>
     <div id="politicalBiasSection">
       <h3>
-        <!-- A container for your repeating lines of text -->
-
-        <!-- Each line of text -->
-
-        <!-- Each character of your text is wrapped in a span for individual control -->
         <span>P</span><span>o</span><span>l</span><span>i</span><span>t</span
         ><span>i</span><span>c</span><span>a</span><span>l</span
         ><span>&nbsp;</span><span>B</span><span>i</span><span>a</span
@@ -75,7 +76,7 @@
 
     <div id="selectedTextSection">
       <h3>Selected Text</h3>
-      <p>Selected Text: <span id="selectedText"></span></p>
+      <p>&nbsp;&nbsp;<span id="selectedText"></span></p>
     </div>
     <div id="wordCounterSection">
       <h3>Word Counter</h3>
