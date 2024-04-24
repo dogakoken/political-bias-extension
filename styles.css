@@ -1,5 +1,5 @@
 body {
-  font-family: "Arial", sans-serif;
+  font-family: "Oddval Variable", sans-serif;
   background-color: #563ce7;
   margin: 0;
   padding: 20px;
@@ -22,7 +22,7 @@ h3:hover {
 
 div {
   background-color: #fff;
-  border-radius: 35px;
+  border-radius: 15px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   padding: 20px;
   margin-top: 20px;
