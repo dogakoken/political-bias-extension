@@ -37,7 +37,6 @@
       }
 
       span {
-        font-weight: bold;
         color: #563ce7;
         animation: pulse 1s infinite;
       }
@@ -67,11 +66,14 @@
         ><span>r</span>
       </h3>
       <p>
-        Predicted Label:
+        <strong>Predicted Label:</strong>
         <span id="politicalBiasLabel" style="display: none"></span
         ><canvas id="speedometer" id="politicalBiasLabel"></canvas>
       </p>
-      <p>Probability: <span id="politicalBiasProbability"></span></p>
+      <p>
+        <strong>Probability:</strong>
+        <span id="politicalBiasProbability"></span>
+      </p>
     </div>
 
     <div id="selectedTextSection">
@@ -80,11 +82,23 @@
     </div>
     <div id="wordCounterSection">
       <h3>Word Counter</h3>
-      <p>Words: <span id="words"></span></p>
-      <p>Spaces: <span id="space"></span></p>
-      <p>Chars: <span id="chars"></span></p>
-      <p>Chars Without Spaces: <span id="charsws"></span></p>
-      <p>Sentences: <span id="sentences"></span></p>
+      <p>
+        <strong>Words:</strong> <strong><span id="words"></span></strong>
+      </p>
+      <p>
+        <strong>Spaces:</strong> <strong><span id="space"></span></strong>
+      </p>
+      <p>
+        <strong>Chars:</strong> <strong><span id="chars"></span></strong>
+      </p>
+      <p>
+        <strong>Chars Without Spaces:</strong>
+        <strong><span id="charsws"></span></strong>
+      </p>
+      <p>
+        <strong>Sentences:</strong>
+        <strong><span id="sentences"></span></strong>
+      </p>
     </div>
   </body>
 </html>
