@@ -75,59 +75,59 @@ function updatePopup(counters) {
       let iconColor = "";
       //labelların olasılığına göre çıkan ikonlar. hepsi aynı sadece renkler farklı (left, right ve centera göre)
       if (label === "left" || label === "right" || label === "center") {
-        if (probabilityValue >= 0.95) {
+        if (probabilityValue >= 1) {
           iconHtml = '<i class="fas fa-star"></i>'.repeat(10);
           iconColor =
             label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
-        } else if (probabilityValue >= 0.9 && probabilityValue < 0.95) {
+        } else if (probabilityValue >= 0.9 && probabilityValue < 1) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(9) +
             '<i class="far fa-star"></i>';
           iconColor =
             label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
-        } else if (probabilityValue >= 0.85 && probabilityValue < 0.9) {
+        } else if (probabilityValue >= 0.8 && probabilityValue < 0.9) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(8) +
             '<i class="far fa-star"></i>'.repeat(2);
           iconColor =
             label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
-        } else if (probabilityValue >= 0.8 && probabilityValue < 0.85) {
+        } else if (probabilityValue >= 0.7 && probabilityValue < 0.8) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(7) +
             '<i class="far fa-star"></i>'.repeat(3);
           iconColor =
             label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
-        } else if (probabilityValue >= 0.75 && probabilityValue < 0.8) {
+        } else if (probabilityValue >= 0.6 && probabilityValue < 0.7) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(6) +
             '<i class="far fa-star"></i>'.repeat(4);
           iconColor =
             label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
-        } else if (probabilityValue >= 0.7 && probabilityValue < 0.75) {
+        } else if (probabilityValue >= 0.5 && probabilityValue < 0.6) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(5) +
             '<i class="far fa-star"></i>'.repeat(5);
           iconColor =
             label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
-        } else if (probabilityValue >= 0.65 && probabilityValue < 0.7) {
+        } else if (probabilityValue >= 0.4 && probabilityValue < 0.5) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(4) +
             '<i class="far fa-star"></i>'.repeat(6);
           iconColor =
             label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
-        } else if (probabilityValue >= 0.6 && probabilityValue < 0.65) {
+        } else if (probabilityValue >= 0.3 && probabilityValue < 0.4) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(3) +
             '<i class="far fa-star"></i>'.repeat(7);
           iconColor =
             label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
-        } else if (probabilityValue >= 0.55 && probabilityValue < 0.6) {
+        } else if (probabilityValue >= 0.2 && probabilityValue < 0.3) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(2) +
             '<i class="far fa-star"></i>'.repeat(8);
           iconColor =
             label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
-        } else if (probabilityValue >= 0.5 && probabilityValue < 0.55) {
+        } else if (probabilityValue >= 0.1 && probabilityValue < 0.2) {
           iconHtml =
             '<i class="fas fa-star"></i>' +
             '<i class="far fa-star"></i>'.repeat(9);
