@@ -35,9 +35,9 @@ function updatePopup(counters) {
     .split("\n")[0]
     .toLowerCase();
   if (politicalBiasLabel === "left") {
-    body.style.backgroundColor = "green";
-  } else if (politicalBiasLabel === "right") {
     body.style.backgroundColor = "red";
+  } else if (politicalBiasLabel === "right") {
+    body.style.backgroundColor = "blue";
   } else if (politicalBiasLabel === "center") {
     body.style.backgroundColor = "#ffcc00";
   } else {
@@ -78,65 +78,65 @@ function updatePopup(counters) {
         if (probabilityValue >= 0.95) {
           iconHtml = '<i class="fas fa-star"></i>'.repeat(10);
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         } else if (probabilityValue >= 0.9 && probabilityValue < 0.95) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(9) +
             '<i class="far fa-star"></i>';
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         } else if (probabilityValue >= 0.85 && probabilityValue < 0.9) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(8) +
             '<i class="far fa-star"></i>'.repeat(2);
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         } else if (probabilityValue >= 0.8 && probabilityValue < 0.85) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(7) +
             '<i class="far fa-star"></i>'.repeat(3);
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         } else if (probabilityValue >= 0.75 && probabilityValue < 0.8) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(6) +
             '<i class="far fa-star"></i>'.repeat(4);
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         } else if (probabilityValue >= 0.7 && probabilityValue < 0.75) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(5) +
             '<i class="far fa-star"></i>'.repeat(5);
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         } else if (probabilityValue >= 0.65 && probabilityValue < 0.7) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(4) +
             '<i class="far fa-star"></i>'.repeat(6);
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         } else if (probabilityValue >= 0.6 && probabilityValue < 0.65) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(3) +
             '<i class="far fa-star"></i>'.repeat(7);
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         } else if (probabilityValue >= 0.55 && probabilityValue < 0.6) {
           iconHtml =
             '<i class="fas fa-star"></i>'.repeat(2) +
             '<i class="far fa-star"></i>'.repeat(8);
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         } else if (probabilityValue >= 0.5 && probabilityValue < 0.55) {
           iconHtml =
             '<i class="fas fa-star"></i>' +
             '<i class="far fa-star"></i>'.repeat(9);
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         } else {
           iconHtml = '<i class="far fa-star"></i>'.repeat(10);
           iconColor =
-            label === "left" ? "green" : label === "right" ? "red" : "#ffcc00";
+            label === "left" ? "red" : label === "right" ? "blue" : "#ffcc00";
         }
       }
 
@@ -190,17 +190,17 @@ document.addEventListener("DOMContentLoaded", function () {
     // label'e göre angle değerini belirle
     if (label === "left") {
       angle = Math.PI * 0.95; // sola doğru
-      color = "green";
+      color = "red";
     } else if (label === "right") {
       angle = Math.PI * 2.05; // sağa doğru
-      color = "red";
+      color = "blue";
     } else if (label === "center") {
       //center
       angle = Math.PI * 1.5; // ortada durur
       color = "#ffcc00"; //sarı renk
     } else {
       angle = Math.PI * -1.5; // ortada durur
-      color = "#563ce7"; //sarı renk
+      color = "#563ce7";
     }
     console.log(color);
     drawSpeedometer(angle, color);
