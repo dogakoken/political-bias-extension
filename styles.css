@@ -54,11 +54,11 @@ span {
 /* label renkleri  */
 
 .political-bias-label-left {
-  color: rgb(75, 204, 75);
+  color: red;
 }
 
 .political-bias-label-right {
-  color: red;
+  color: blue;
 }
 
 .political-bias-label-center {
