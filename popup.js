@@ -11,13 +11,38 @@ chrome.runtime.onMessage.addListener(function (request) {
     const counters = request.counters;
     const politicalBiasScore = request.politicalBiasScore;
 
-    //Update other counters as before
+    // Update other counters as before
     updatePopup(counters);
 
-    // Speedometer'ı güncelle
+    // Update speedometer
     updateSpeedometer(counters.politicalBiasLabel);
   }
 });
+
+function detectLanguage(text) {
+  console.log("Detecting language for text:", text); // Added console log here
+  const turkishChars = /[çğıöşüÇĞİÖŞÜ]/;
+  const commonTurkishWords = [
+    "ve",
+    "bir",
+    "bu",
+    "için",
+    "ile",
+    "ama",
+    "gibi",
+    "çünkü",
+    "ancak",
+    "şimdi",
+  ];
+
+  if (turkishChars.test(text)) {
+    console.log("Detected Turkish characters");
+    return "tr";
+  }
+
+  console.log("No Turkish detected, assuming English");
+  return "en";
+}
 
 function updatePopup(counters) {
   const spaceElem = document.getElementById("space");
@@ -54,6 +79,55 @@ function updatePopup(counters) {
     const [label, probability] = counters.politicalBiasScore.split("\n");
     selectedTextElem.textContent = counters.selectedText || "N/A";
 
+    console.log("Detected language:", detectLanguage(counters.selectedText));
+
+    const detectedLanguage = detectLanguage(counters.selectedText);
+    if (detectedLanguage === "tr") {
+      // Political Bias Section
+      document
+        .getElementById("politicalBiasSection")
+        .querySelector("h3").textContent = "Politik Eğilim Dedektörü";
+      const politicalBiasSection = document.getElementById(
+        "politicalBiasSection"
+      );
+
+      politicalBiasSection.querySelector(
+        "p:nth-of-type(1) strong"
+      ).textContent = "Tahmin Edilen Etiket:";
+      politicalBiasSection.querySelector(
+        "p:nth-of-type(2) strong"
+      ).textContent = "Olasılık:";
+
+      // Selected Text Section
+      document
+        .getElementById("selectedTextSection")
+        .querySelector("h3").textContent = "Seçili Metin Bölümü";
+
+      // Word Counter Section
+      document
+        .getElementById("wordCounterSection")
+        .querySelector("h3").textContent = "Kelime Sayacı";
+      const wordCounterSection = document.getElementById("wordCounterSection");
+
+      wordCounterSection.querySelector("p:nth-of-type(1) strong").textContent =
+        "Kelime:";
+      wordCounterSection.querySelector("p:nth-of-type(2) strong").textContent =
+        "Boşluk:";
+      wordCounterSection.querySelector("p:nth-of-type(3) strong").textContent =
+        "Karakter:";
+      wordCounterSection.querySelector("p:nth-of-type(4) strong").textContent =
+        "Boşluk Olmadan Karakter:";
+      wordCounterSection.querySelector("p:nth-of-type(5) strong").textContent =
+        "Cümle:";
+
+      document.documentElement.lang = "tr"; // Sayfa dilini Türkçe olarak ayarla
+    } else {
+      document
+        .getElementById("wordCounterSection")
+        .querySelector("h3").textContent = "Word Counter";
+      document.documentElement.lang = "en"; // Set document language to English
+    }
+
     politicalBiasLabelElem.textContent = label || "N/A";
     politicalBiasProbabilityElem.textContent = probability || "N/A";
 
@@ -73,7 +147,7 @@ function updatePopup(counters) {
     if (!isNaN(probabilityValue)) {
       let iconHtml = "";
       let iconColor = "";
-      //labelların olasılığına göre çıkan ikonlar. hepsi aynı sadece renkler farklı (left, right ve centera göre)
+      // labelların olasılığına göre çıkan ikonlar. hepsi aynı sadece renkler farklı (left, right ve centera göre)
       if (label === "left" || label === "right" || label === "center") {
         if (probabilityValue >= 1) {
           iconHtml = '<i class="fas fa-star"></i>'.repeat(10);
@@ -164,7 +238,7 @@ function updatePopup(counters) {
   }
 }
 
-//speedometer boyutları burada ayarlandı, değiştirilebilir ya da farklı dosyada yazılabılır
+// Speedometer boyutları burada ayarlandı, değiştirilebilir ya da farklı dosyada yazılabılır
 document.addEventListener("DOMContentLoaded", function () {
   // Speedometer için gerekli değişkenler
   const speedometerCanvas = document.getElementById("speedometer");
@@ -195,9 +269,9 @@ document.addEventListener("DOMContentLoaded", function () {
       angle = Math.PI * 2.05; // sağa doğru
       color = "blue";
     } else if (label === "center") {
-      //center
+      // center
       angle = Math.PI * 1.5; // ortada durur
-      color = "#ffcc00"; //sarı renk
+      color = "#ffcc00"; // sarı renk
     } else {
       angle = Math.PI * -1.5; // ortada durur
       color = "#563ce7";
@@ -205,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log(color);
     drawSpeedometer(angle, color);
   }
+
   function drawSpeedometer(angle, color) {
     context.clearRect(0, 0, speedometerCanvas.width, speedometerCanvas.height);
 
@@ -212,7 +287,7 @@ document.addEventListener("DOMContentLoaded", function () {
     context.beginPath();
     context.arc(centerX, centerY, radius, 0, Math.PI * 2, counterClockwise);
     context.lineWidth = 5;
-    context.strokeStyle = "#000"; //speedometer çerçevesi rengi
+    context.strokeStyle = "#000"; // speedometer çerçevesi rengi
     context.stroke();
 
     // İbreyi çiz
@@ -230,10 +305,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     context.fillStyle = "#000"; // siyah renk metin
     context.textAlign = "center";
-    context.fillText("left", centerX - radius + 30, centerY + 10); // soldaki metin left
-    context.fillText("center", centerX, centerY - radius + 40); // üstteki metin center
-    context.fillText("right", centerX + radius - 30, centerY + 10); // sağdaki metin right
-    context.fillText("N/A", centerX, centerY + radius - 25); //alttaki metin N/A
+    if (document.documentElement.lang === "tr") {
+      context.fillText("sol", centerX - radius + 30, centerY + 10); // soldaki metin left
+      context.fillText("orta", centerX, centerY - radius + 40); // üstteki metin center
+      context.fillText("sağ", centerX + radius - 30, centerY + 10); // sağdaki metin right
+      context.fillText("N/A", centerX, centerY + radius - 25); // alttaki metin N/A
+    } else {
+      context.fillText("left", centerX - radius + 30, centerY + 10); // soldaki metin left
+      context.fillText("center", centerX, centerY - radius + 40); // üstteki metin center
+      context.fillText("right", centerX + radius - 30, centerY + 10); // sağdaki metin right
+      context.fillText("N/A", centerX, centerY + radius - 25); // alttaki metin N/A
+    }
   }
 
   // Speedometer'ı çizmek için ilk çağrı
