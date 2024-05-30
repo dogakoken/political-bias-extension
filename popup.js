@@ -101,7 +101,7 @@ function updatePopup(counters) {
       // Selected Text Section
       document
         .getElementById("selectedTextSection")
-        .querySelector("h3").textContent = "Seçili Metin Bölümü";
+        .querySelector("h3").textContent = "Seçili Metin";
 
       // Word Counter Section
       document
@@ -110,15 +110,15 @@ function updatePopup(counters) {
       const wordCounterSection = document.getElementById("wordCounterSection");
 
       wordCounterSection.querySelector("p:nth-of-type(1) strong").textContent =
-        "Kelime:";
+        "Kelime Sayısı:";
       wordCounterSection.querySelector("p:nth-of-type(2) strong").textContent =
-        "Boşluk:";
+        "Boşluk Sayısı:";
       wordCounterSection.querySelector("p:nth-of-type(3) strong").textContent =
-        "Karakter:";
+        "Karakter Sayısı:";
       wordCounterSection.querySelector("p:nth-of-type(4) strong").textContent =
         "Boşluk Olmadan Karakter:";
       wordCounterSection.querySelector("p:nth-of-type(5) strong").textContent =
-        "Cümle:";
+        "Cümle Sayısı:";
 
       document.documentElement.lang = "tr"; // Sayfa dilini Türkçe olarak ayarla
     } else {
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const context = speedometerCanvas.getContext("2d");
   let centerX = speedometerCanvas.width / 2;
   let centerY = speedometerCanvas.height / 2;
-  let radius = 70;
+  let radius = 72;
   let startAngle = Math.PI * 0.75;
   let endAngle = Math.PI * 2.25;
   let counterClockwise = false;
@@ -282,17 +282,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function drawSpeedometer(angle, color) {
     context.clearRect(0, 0, speedometerCanvas.width, speedometerCanvas.height);
-
+    context.font = "13px Oddval Variable";
     // Speedometer'ın dış çemberini çiz
     context.beginPath();
     context.arc(centerX, centerY, radius, 0, Math.PI * 2, counterClockwise);
     context.lineWidth = 5;
-    context.strokeStyle = "#000"; // speedometer çerçevesi rengi
+    context.font = "13px Oddval Variable";
     context.stroke();
 
     // İbreyi çiz
-    let ix = centerX + (radius - 4) * Math.cos(angle);
-    let iy = centerY + (radius - 4) * Math.sin(angle);
+    let ix = centerX + (radius - 10) * Math.cos(angle);
+    let iy = centerY + (radius - 10) * Math.sin(angle);
 
     context.beginPath();
     context.moveTo(centerX, centerY);
@@ -301,7 +301,31 @@ document.addEventListener("DOMContentLoaded", function () {
     context.strokeStyle = color;
     context.stroke();
 
-    context.font = " 15px Arial";
+    var gradient = context.createLinearGradient(
+      centerX - radius,
+      centerY,
+      centerX + radius,
+      centerY
+    );
+    gradient.addColorStop(0, "red");
+    gradient.addColorStop(0.5, "#ffcc00");
+    gradient.addColorStop(1, "blue");
+
+    // Gradyan çemberi çiz
+    context.beginPath();
+    context.arc(
+      centerX,
+      centerY,
+      radius - 10,
+      startAngle,
+      endAngle,
+      counterClockwise
+    );
+    context.lineWidth = 10;
+    context.strokeStyle = gradient;
+    context.stroke();
+
+    context.font = "13px Oddval Variable";
 
     context.fillStyle = "#000"; // siyah renk metin
     context.textAlign = "center";
