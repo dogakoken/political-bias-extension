@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
     context.textAlign = "center";
     if (document.documentElement.lang === "tr") {
       context.fillText("sol", centerX - radius + 30, centerY + 10); // soldaki metin left
-      context.fillText("merkez", centerX, centerY - radius + 40); // üstteki metin center
+      context.fillText("nötr", centerX, centerY - radius + 40); // üstteki metin center
       context.fillText("sağ", centerX + radius - 30, centerY + 10); // sağdaki metin right
       context.fillText("N/A", centerX, centerY + radius - 25); // alttaki metin N/A
     } else {
