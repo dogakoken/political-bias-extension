@@ -21,7 +21,7 @@ chrome.runtime.onMessage.addListener(function (request) {
 
 function detectLanguage(text) {
   console.log("Detecting language for text:", text); // Added console log here
-  const turkishChars = /[çğıöşüÇĞİÖŞÜ]/;
+  const turkishChars = /[çğıöşüÇĞİÖŞÜ]/g;
   const commonTurkishWords = [
     "ve",
     "bir",
@@ -35,12 +35,28 @@ function detectLanguage(text) {
     "şimdi",
   ];
 
-  if (turkishChars.test(text)) {
-    console.log("Detected Turkish characters");
+  // Count the total number of characters
+  const totalChars = text.length;
+  if (totalChars === 0) {
+    console.log("Empty text provided");
+    return "unknown"; // Return unknown for empty text
+  }
+
+  // Find all Turkish characters in the text
+  const turkishCharMatches = text.match(turkishChars);
+  const turkishCharCount = turkishCharMatches ? turkishCharMatches.length : 0;
+
+  // Calculate the percentage of Turkish characters
+  const turkishCharPercentage = (turkishCharCount / totalChars) * 100;
+  console.log(`Turkish character percentage: ${turkishCharPercentage.toFixed(2)}%`);
+
+  // Determine the language based on the percentage of Turkish characters
+  if (turkishCharPercentage > 3) {
+    console.log("Detected Turkish language based on character percentage");
     return "tr";
   }
 
-  console.log("No Turkish detected, assuming English");
+  console.log("No sufficient Turkish characters detected, assuming English");
   return "en";
 }
 
