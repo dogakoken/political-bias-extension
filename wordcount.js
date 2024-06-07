@@ -1,6 +1,5 @@
 async function updateCounters(selectedText) {
-  const url = new URL("http://127.0.0.1:5000/hello2"); //fake news kısmında hello olan port hello2 olarak burada güncellendi.
-  //TODO: farklı portlarda ayrı ayrı çalışıyor mu prediction geldikten sonra değerlendirilmesi test edilmesi lazım
+  const url = new URL("http://127.0.0.1:5001/hello2"); //fake news kısmında hello olan port hello2 olarak burada güncellendi.
   let political_bias = "";
 
   // Add query parameters
@@ -192,11 +191,18 @@ async function updateCounters(selectedText) {
     },
   });
 }
+let isListenerAdded = false;
 
-// Listen for messages from the popup
-chrome.runtime.onMessage.addListener(function (request) {
-  if (request.action === "getSelectedText") {
-    const selectedText = window.getSelection().toString();
-    updateCounters(selectedText);
+function addListener() {
+  if (!isListenerAdded) {
+    chrome.runtime.onMessage.addListener(function (request) {
+      if (request.action === "getSelectedText") {
+        const selectedText = window.getSelection().toString();
+        updateCounters(selectedText);
+      }
+    });
+    isListenerAdded = true;
   }
-});
+}
+
+addListener();
